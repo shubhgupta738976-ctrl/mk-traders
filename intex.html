@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MK TRADERS PRIVATE LIMITED</title>
+
+<style>
+body {margin:0;font-family:Arial;background:#f5f5f5;}
+header {background:#131921;color:#fff;text-align:center;padding:20px;}
+nav {background:#232f3e;text-align:center;padding:10px;}
+nav a {color:white;margin:0 10px;text-decoration:none;}
+.container {max-width:1100px;margin:auto;padding:20px;}
+.products {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.card {background:#fff;padding:15px;border-radius:10px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,0.1);}
+.card img {width:100%;height:160px;object-fit:cover;border-radius:8px;}
+.btn {background:#ff9900;color:black;padding:10px;border:none;cursor:pointer;border-radius:5px;margin-top:10px;font-weight:bold;}
+input, select {width:100%;padding:10px;margin:8px 0;border-radius:5px;border:1px solid #ccc;}
+.qty-box {display:flex;gap:10px;}
+footer {background:#111;color:white;text-align:center;padding:15px;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>MK TRADERS PRIVATE LIMITED</h1>
+<p>Shop Smart. Live Better, Not Just a Brand, A Vibe</p>
+</header>
+
+<nav>
+<a href="#products">Products</a>
+<a href="#order">Order</a>
+</nav>
+
+<div class="container">
+
+<h2 id="products">Our Products</h2>
+<div class="products">
+<div class="card"><img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952"><h3>Floor Cleaner</h3><p>₹120</p></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1"><h3>Dish Wash Liquid</h3><p>₹80</p></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1585421514738-01798e348b17"><h3>Toilet Cleaner</h3><p>₹95</p></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1590080875852-ba44f83ff7b5"><h3>Hand Wash</h3><p>₹70</p></div>
+</div>
+
+<h2 id="order">Place Order</h2>
+
+<input type="text" id="name" placeholder="Your Name">
+
+<select id="product" onchange="updatePrice()">
+<option value="120">Floor Cleaner - ₹120</option>
+<option value="80">Dish Wash Liquid - ₹80</option>
+<option value="95">Toilet Cleaner - ₹95</option>
+<option value="70">Hand Wash - ₹70</option>
+</select>
+
+<div class="qty-box">
+<button onclick="changeQty(-1)">-</button>
+<input type="number" id="qty" value="1">
+<button onclick="changeQty(1)">+</button>
+</div>
+
+<p><strong>Total Price: ₹<span id="total">120</span></strong></p>
+
+<input type="text" id="address" placeholder="Address">
+
+<h3>Payment Method</h3>
+<p><strong>UPI Payment Only</strong></p>
+<p>UPI ID: 9131341930@ybl</p>
+
+<button class="btn" onclick="orderNow()">Place Order & Pay</button>
+
+</div>
+
+<footer>
+<p><strong>GST:</strong> 23AUQPG9894E1Z4</p>
+<p>Phone / WhatsApp: 9131341930</p>
+<p>Location: Dharampur Chauraha, Singhpur, Ajaygarh, Panna (MP)</p>
+</footer>
+
+<script>
+function changeQty(val){
+let qty = document.getElementById('qty');
+qty.value = Math.max(1, parseInt(qty.value) + val);
+updatePrice();
+}
+
+function updatePrice(){
+let price = document.getElementById('product').value;
+let qty = document.getElementById('qty').value;
+document.getElementById('total').innerText = price * qty;
+}
+
+function orderNow() {
+var name = document.getElementById('name').value;
+var productText = document.getElementById('product').options[document.getElementById('product').selectedIndex].text;
+var qty = document.getElementById('qty').value;
+var total = document.getElementById('total').innerText;
+var address = document.getElementById('address').value;
+
+var paymentMethod = "UPI";
+
+var orderId = Math.floor(Math.random()*100000);
+
+var message = "New Order%0A"
++ "Order ID: " + orderId + "%0A"
++ "Name: " + name + "%0A"
++ "Product: " + productText + "%0A"
++ "Qty: " + qty + "%0A"
++ "Total: ₹" + total + "%0A"
++ "Payment: UPI%0A"
++ "Address: " + address;
+
+// WhatsApp
+var url = "https://wa.me/919131341930?text=" + message;
+window.open(url, '_blank');
+
+// UPI Auto Open
+var upiLink = "upi://pay?pa=9131341930@ybl&pn=MK%20TRADERS&am=" + total;
+window.open(upiLink, '_blank');
+}
+}
+</script>
+
+</body>
+</html>
